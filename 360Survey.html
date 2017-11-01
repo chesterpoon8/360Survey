@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Links to the attendings we would like you to evaluate:</h2>
+<h4>(Reminder: your responses will remain anonymous)</h4>
+
+<div class="link-container"></div>
+
+<p>Thank you</p>
+
+<style>
+
+
+</style>
+
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script>
+
+var surveys = [
+  {kerb : 'ABCDE99', 'link' : 'https://yourqualtricssurveylink', 'att' : 'DOE, JOHN'}
+];
+
+var kid = prompt("Please enter your Kerberos ID");
+
+function verify(kid) {
+  if (kid == "") {
+    return false;
+  } else {
+    return surveys.some(function(d) {
+      return d.kerb == kid.toUpperCase();
+  })}
+}
+
+while (verify(kid) == false) {
+  kid = prompt("Invalid kerberos. Please enter your Kerberos ID");
+}
+
+var surveysF = surveys.filter(function(d) {
+  return d.kerb == kid.toUpperCase();
+});
+
+var body = d3.select(".link-container")
+  .append("p")
+
+var join = body.selectAll("p.link-container")
+  .data(surveysF)
+  .enter()
+  .append("a")
+  .attr("href", function(d) {
+    return d.link;
+  })
+  .text(function(d) {
+    return d.att;
+  })
+  .append("p");
+
+</script>
+
+</body>
+</html>
